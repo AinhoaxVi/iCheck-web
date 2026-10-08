@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10151d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="iCheck">
+  <meta name="description" content="Panel privado para revisar datos disponibles y anotar el estado de tu iPhone.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>iCheck · Diagnóstico del iPhone</title>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">i</span><span>iCheck</span></div>
+      <div class="live"><span class="live-dot"></span> Panel en este dispositivo</div>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">DIAGNÓSTICO PERSONAL</p>
+      <h1>Tu iPhone,<br><span>en perspectiva.</span></h1>
+      <p class="intro-copy">Consulta lo que el navegador puede detectar y guarda tus datos manuales solo en este dispositivo.</p>
+    </section>
+
+    <section class="device-card card">
+      <div class="device-orb" aria-hidden="true"><span>◉</span></div>
+      <div class="device-info">
+        <label for="model">Modelo de iPhone</label>
+        <select id="model" aria-label="Modelo de iPhone">
+          <option value="">Selecciona tu modelo</option>
+          <option>iPhone 8</option><option>iPhone 8 Plus</option><option>iPhone X</option>
+          <option>iPhone XR</option><option>iPhone XS</option><option>iPhone XS Max</option>
+          <option>iPhone 11</option><option>iPhone 11 Pro</option><option>iPhone 11 Pro Max</option>
+          <option>iPhone SE (2.ª generación)</option>
+          <option>iPhone 12 mini</option><option>iPhone 12</option><option>iPhone 12 Pro</option><option>iPhone 12 Pro Max</option>
+          <option>iPhone 13 mini</option><option>iPhone 13</option><option>iPhone 13 Pro</option><option>iPhone 13 Pro Max</option>
+          <option>iPhone SE (3.ª generación)</option>
+          <option>iPhone 14</option><option>iPhone 14 Plus</option><option>iPhone 14 Pro</option><option>iPhone 14 Pro Max</option>
+          <option>iPhone 15</option><option>iPhone 15 Plus</option><option>iPhone 15 Pro</option><option>iPhone 15 Pro Max</option>
+          <option>iPhone 16</option><option>iPhone 16 Plus</option><option>iPhone 16 Pro</option><option>iPhone 16 Pro Max</option>
+          <option>iPhone 16e</option><option>iPhone 17</option><option>iPhone 17 Pro</option><option>iPhone 17 Pro Max</option><option>iPhone Air</option>
+          <option>Otro modelo</option>
+        </select>
+        <span class="microcopy">No se detecta automáticamente: Apple oculta el modelo al navegador.</span>
+      </div>
+    </section>
+
+    <section class="section-heading"><div><p class="eyebrow">ESTADO DEL DISPOSITIVO</p><h2>Lecturas y apuntes</h2></div><button class="icon-button" id="refresh" aria-label="Actualizar lecturas" title="Actualizar">↻</button></section>
+
+    <section class="grid">
+      <article class="card metric-card battery-card">
+        <div class="card-heading"><span class="icon">ϟ</span><span class="eyebrow">BATERÍA ACTUAL</span><span class="source-tag" id="battery-source">MANUAL</span></div>
+        <div class="big-value"><span id="battery-level-view">—</span><small>%</small></div>
+        <div class="progress"><span id="battery-bar"></span></div>
+        <label class="input-label" for="battery-level">Nivel que aparece en el icono de batería</label>
+        <div class="input-row"><input id="battery-level" type="number" inputmode="numeric" min="0" max="100" placeholder="Ej. 72"><span>%</span></div>
+        <p class="hint" id="battery-note">Safari no comparte automáticamente el nivel de batería con esta web.</p>
+      </article>
+
+      <article class="card metric-card health-card">
+        <div class="card-heading"><span class="icon heart">♡</span><span class="eyebrow">SALUD DE BATERÍA</span></div>
+        <div class="big-value"><span id="health-view">—</span><small>%</small></div>
+        <label class="input-label" for="health">Capacidad máxima en Ajustes</label>
+        <div class="input-row"><input id="health" type="number" inputmode="numeric" min="0" max="100" placeholder="Ej. 90"><span>%</span></div>
+        <p class="hint">Ajustes → Batería → Salud de la batería. Introduce aquí el dato.</p>
+      </article>
+
+      <article class="card metric-card storage-card">
+        <div class="card-heading"><span class="icon">▤</span><span class="eyebrow">ALMACENAMIENTO DEL IPHONE</span></div>
+        <div class="storage-readout"><div><strong id="storage-free-view">—</strong><span>libres</span></div><div class="storage-total"><strong id="storage-total-view">—</strong><span>capacidad</span></div></div>
+        <div class="progress"><span id="storage-bar"></span></div>
+        <div class="storage-inputs">
+          <label>Capacidad<select id="storage-capacity"><option value="">—</option><option>32</option><option>64</option><option>128</option><option>256</option><option>512</option><option>1024</option><option>2048</option></select><span>GB</span></label>
+          <label>Libre<input id="storage-free" type="number" inputmode="decimal" min="0" placeholder="Ej. 38"><span>GB</span></label>
+        </div>
+        <p class="hint">Míralo en Ajustes → General → Almacenamiento del iPhone.</p>
+      </article>
+
+      <article class="card metric-card cpu-card">
+        <div class="card-heading"><span class="icon">⌘</span><span class="eyebrow">PROCESADOR</span></div>
+        <div class="big-value"><span id="cores-view">—</span><small id="cores-unit">núcleos detectados</small></div>
+        <button class="action-button" id="benchmark">Medir rendimiento aproximado <span>→</span></button>
+        <p class="hint" id="benchmark-result">La prueba compara rapidez de cálculo en esta sesión; no mide el porcentaje de uso ni la frecuencia real del chip.</p>
+      </article>
+
+      <article class="card metric-card browser-card">
+        <div class="card-heading"><span class="icon">◌</span><span class="eyebrow">NAVEGADOR</span></div>
+        <div class="browser-name" id="browser-view">Comprobando…</div>
+        <p class="hint">El navegador no expone los ciclos de batería, la temperatura exacta, la RAM total ni el uso general de CPU.</p>
+        <div class="privacy-note"><span>●</span> Tus apuntes se guardan solo aquí</div>
+      </article>
+    </section>
+
+    <aside class="notice"><span class="notice-icon">i</span><div><strong>Datos honestos, sin inventar lecturas</strong><p>iOS limita lo que una página puede consultar. La salud de batería y el espacio libre se anotan desde Ajustes; el número de núcleos y la prueba de cálculo son referencias, no un diagnóstico de Apple.</p></div></aside>
+
+    <section class="install-card card" id="install-card">
+      <div><p class="eyebrow">ACCESO RÁPIDO</p><h2>Añádela a tu pantalla de inicio</h2><p>En Safari, toca <strong>Compartir</strong> y después <strong>Añadir a pantalla de inicio</strong>.</p></div>
+      <div class="share-glyph" aria-hidden="true">↑</div>
+    </section>
+
+    <footer><span>iCheck · versión web</span><span>Sin cuenta · sin analítica · sin servidor</span></footer>
+  </main>
+  <script src="app.js" defer></script>
+</body>
+</html>
